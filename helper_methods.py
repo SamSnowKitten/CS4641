@@ -12,7 +12,8 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.preprocessing import Normalizer
 from skimage.transform import resize
-from skimage.filters import sobel
+#from skimage.filters import sobel
+from skimage.filters import scharr
 from sklearn import datasets
 from skimage.color import rgb2gray
 from skimage.feature import hog
@@ -51,12 +52,14 @@ def loadCalTechData(test_size = 0.2):
 #                img[:,:,1] -= 116.78
 #                img[:,:,2] -= 103.94
                 img = rgb2gray(img)
-                img = sobel(img)
-                img = hog(img, orientations=8, pixels_per_cell=(32, 32), cells_per_block=(1, 1), block_norm="L2-Hys")
+#                img = sobel(img)
+                img = scharr(img)
+#                img = hog(img, orientations=8, pixels_per_cell=(32, 32), cells_per_block=(1, 1), block_norm="L2-Hys", transform_sqrt=True)
+                img = hog(img, pixels_per_cell=(32, 32), block_norm="L2-Hys", transform_sqrt=True)
                 imgs.append(img) # NORMALIZE IMAGE 
                 label_curr = i
                 labels.append(label_curr)
-            #iter = (iter+1)%10;
+#            iter = (iter+1)%10;
     print ("Num imgs: %d" % (len(imgs)))
     print ("Num labels: %d" % (len(labels)) )
     print (ncategories)
