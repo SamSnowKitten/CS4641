@@ -6,7 +6,6 @@ Created on Sun Feb  3 13:08:33 2019
 """
 
 import numpy as np
-from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from helper_methods import loadUCIBreastCancerData, loadCalTechData
 from helper_methods import performGridSearch
