@@ -10,7 +10,6 @@ from sklearn.ensemble import AdaBoostClassifier, GradientBoostingClassifier
 from helper_methods import loadUCIBreastCancerData, loadCalTechData
 from helper_methods import performGridSearch
 from mlxtend.plotting import plot_learning_curves
-import graphviz
 from sklearn.tree import DecisionTreeClassifier
 
 #Load datasets
@@ -20,7 +19,7 @@ X_train = np.array(X_train)
 y_train = np.array(y_train)
 
 #running grid search on n_neighbor with distance function
-estimator = DecisionTreeClassifier()
+estimator = DecisionTreeClassifier(max_depth = 3)
 model = AdaBoostClassifier(base_estimator = estimator)
 #params = {"max_depth": np.arange(1, 100),
 #          "min_samples_split": np.arange(2, 7)}
@@ -43,13 +42,20 @@ verbal_param_name = ["max_depth", "loss"]
 model = GradientBoostingClassifier()
 #params = {"max_depth": np.arange(1, 100),
 #          "min_samples_split": np.arange(2, 7)}
-params = {"n_estimators": np.arange(1, 100, 5),
+params = {"n_estimators": np.arange(1, 100, 10),
           "loss": ["deviance"]}
 param_name = ["n_estimators", "loss"]
 verbal_param_name = ["n_estimators", "loss"]
-performGridSearch(model, params, param_name, verbal_param_name, X_train, X_test, y_train, y_test)
+#performGridSearch(model, params, param_name, verbal_param_name, X_train, X_test, y_train, y_test)
 
 
 #running learning curve on the best hyperparameters
-#model = AdaBoostClassifier(criterion = "entropy", max_depth = 22)
+estimator = DecisionTreeClassifier()
+#model = AdaBoostClassifier(algorithm = "SAMME.R", n_estimators = 376, base_estimator = estimator)
 #plot_learning_curves(np.array(X_train), y_train, np.array(X_test), y_test, model, scoring = "accuracy")
+
+#model = GradientBoostingClassifier(loss = "deviance", n_estimators = 81)
+#plot_learning_curves(np.array(X_train), y_train, np.array(X_test), y_test, model, scoring = "accuracy")
+
+model = AdaBoostClassifier(algorithm = "SAMME", n_estimators = 51, base_estimator = estimator)
+plot_learning_curves(np.array(X_train), y_train, np.array(X_test), y_test, model, scoring = "f1_weighted")
