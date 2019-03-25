@@ -1,4 +1,5 @@
 Most of the codes are stolen from nthakurdesai3
+Code is contained in: https://github.com/SamSnowKitten/CS4641/tree/master/Assignment3
 
 The code for the experiments is in three Jupyter notebooks located in the code directory:
 1. unsupervised_learning_1.ipynb: Clustering without dimensionality reduction (the clustering algorithms applied to two datasets, a total of 4 experiments)
